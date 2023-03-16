@@ -53,8 +53,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 170, 127);
-background-color: rgb(255, 170, 0);</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Browse</string>
@@ -1387,7 +1386,7 @@ background-color: rgb(255, 170, 0);</string>
      <string>Other Plot</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="cat_column_12">
+   <widget class="QComboBox" name="model_select">
     <property name="geometry">
      <rect>
       <x>870</x>
@@ -1396,8 +1395,43 @@ background-color: rgb(255, 170, 0);</string>
       <height>31</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>Linear Regression</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SVM</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SVR</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Logistic Regression</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Random Forest</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>KNN</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>MLP</string>
+     </property>
+    </item>
    </widget>
-   <widget class="QPushButton" name="convert_btn_9">
+   <widget class="QPushButton" name="train">
     <property name="geometry">
      <rect>
       <x>950</x>

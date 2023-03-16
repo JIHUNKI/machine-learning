@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
+import logistic_reg,KNN,RandomForest,linear_reg
+
 class UI(QMainWindow):
     def __init__(self):
         super(UI, self).__init__()
@@ -53,6 +55,13 @@ class UI(QMainWindow):
         self.hist_add_btn.clicked.connect(self.hist_add_column)
         self.hist_remove_btn.clicked.connect(self.hist_remove_column)
         self.histogram.clicked.connect(self.histogram_plot)
+
+        ## machine learning modeling 등록
+        self.model_select = self.findChild(QComboBox , "model_select")
+        self.train = self.findChild(QPushButton , "train")
+
+    
+        self.train.clicked.connect(self.train_func)
         
         #히트맵 등록
         self.hitmap = self.findChild(QPushButton , "hitmap")
@@ -84,6 +93,12 @@ class UI(QMainWindow):
 
         # 꺽은선 그래프
         self.line_plot.clicked.connect(self.lineplot)
+
+    def train_func(self):
+        myDict = {"Linear Regression":linear_reg,'Logistic Regression':logistic_reg,'KNN':KNN,"Random Forest":RandomForest}
+        if (self.target_value !=""):
+            self.win = myDict[self.model_select.currentText()].UI(self.df,self.target_value)
+
 
     def plot_heatmap(self):
         plt.figure()
