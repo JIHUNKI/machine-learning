@@ -4,6 +4,7 @@ import json
 from datetime import date
 from fetch import movie, movie_collection
 import pandas as pd
+from ml import RECOMMEND
 
 app = Flask(__name__)
  
@@ -49,7 +50,27 @@ def details(id):
     data = json.loads(requests.get(url).text)
     data_json = movie(data["id"],data["title"],data["poster_path"],data["vote_average"],data["release_date"],data["overview"],data["backdrop_path"])
     return render_template('details.html', movie=data_json)
-    
 
+@app.route('/recommend',methods=['GET','POST'])
+def recommend():
+    if request.method=='GET':
+        return render_template('recommend.html')    
+    elif request.method =='POST':
+        recommend_model = RECOMMEND()
+        movie_name = request.form['movie_name']
+        if movie_name not in recommend_model.all_titles:
+            id_url = f"http://api.themoviedb.org/3/search/movie?api_key=da396cb4a1c47c5b912fda20fd3a3336&query={movie_name}"
+            data = json.loads(requests.get(id_url).text)
+            name_list = [i['title'] for i in data['results']]
+
+            return render_template('negative.html',name_list=name_list,name=movie_name,all_titles=recommend_model.all_titles)
+        else:
+            result_df = recommend_model.get_recommendation(movie_name)
+            data = []
+            for i in range(len(result_df)):
+                data.append((list(result_df['title'])[i],list(result_df['release_date'])[i]))
+
+            return render_template('positive.html',movie_data = data , search_name = movie_name)
+    
 if __name__ == '__main__':
     app.run(debug=True)

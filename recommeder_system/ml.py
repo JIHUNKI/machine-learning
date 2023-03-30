@@ -3,10 +3,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 df = pd.read_csv('tmdb.csv')
+all_titles = [df['title'][i] for i in range(len(df['title']))]
 
 class RECOMMEND():
     def __init__(self , vectorizer =TfidfVectorizer ):
         self.vectorzier = vectorizer
+        self.all_titles = all_titles
         
     
     def get_recommendation(self, title):
